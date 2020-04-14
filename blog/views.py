@@ -1,7 +1,8 @@
 from django.shortcuts import get_object_or_404,render
-from .models import Blog,BlogType
+from .models import Blog,BlogType,ReadNum
 from django.contrib.contenttypes.models import ContentType
 from comment.models import Comment
+from datetime import datetime
 
 # Create your views here.
 def blog_list(request):
@@ -12,6 +13,17 @@ def blog_list(request):
 
 def blog_detail(request,blog_pk):
     blog = get_object_or_404(Blog,pk=blog_pk)
+    if not request.COOKIES.get('blog_%s_read' % blog_pk):
+        if ReadNum.objects.filter(blog = blog).count():
+            #存在记录
+            readnum = ReadNum.objects.get(blog=blog)
+        else:
+            #不存在记录
+            readnum = ReadNum()
+            readnum.blog = blog
+        readnum.read_num += 1
+        readnum.save()
+
     blog_content_type = ContentType.objects.get_for_model(blog)
     comments = Comment.objects.filter(content_type=blog_content_type,object_id=blog.pk)
     context={}
@@ -20,7 +32,9 @@ def blog_detail(request,blog_pk):
     context['next_blog'] = Blog.objects.filter(created_time__lt=context['blog'].created_time).first() #or [0]
     context['user'] = request.user
     context['comments'] = comments
-    return render(request,'blog/blog_detail.html',context)
+    response = render(request,'blog/blog_detail.html',context) #响应
+    response.set_cookie('blog_%s_read' % blog_pk ,'true') #max_age=60, expires=datetime
+    return response
 
 def blogs_with_type(request,blog_type_pk):
     context={}
