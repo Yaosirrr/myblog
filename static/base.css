@@ -1,0 +1,28 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    margin-top: 70px!important;
+}
+
+
+/*
+使用bootstrap的nav工具开发后 此处可注释掉
+div.nav a{
+    color: #000;
+    text-decoration: none;
+    padding 10px 5px;
+}
+div.nav a.logo {
+    display: inline-block;
+}
+
+div.nav {
+    background-color:#eee;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 120%;
+}
+*/
