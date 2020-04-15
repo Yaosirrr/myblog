@@ -18,11 +18,22 @@ active
 
 {#内容#}
 {% block content %}
-    <h3 class="home-content">欢迎访问姚sir的个人网站</h3>
-    <h5 class="home-content">获取该网站源码请访问https://github.com/Yaosirrr/myblog.git</h5>
+    <h3 class="home-content" style="
+        font-size: 222%;
+        text-align: center;
+        margin-top: 4em;">欢迎访问姚sir的个人网站</h3>
+    <h5 class="home-content" style="
+        text-align: center;
+        margin-bottom: 2em;">获取该网站源码请访问https://github.com/Yaosirrr/myblog.git</h5>
     <!-- 图表容器 DOM -->
-    <div id="container"></div>
-    <div class="hot-data">
+    <div id="container" style="
+        margin: 0 auto;
+        height: 20em;
+        min-width: 20em;
+        max-width: 30em;"></div>
+    <div class="hot-data" style="
+        text-align:center;
+        margin-top:2em;">
         <!-- 今日热门博客-->
         <h3>今日热门博客</h3>
         <ul>
@@ -33,7 +44,9 @@ active
             {% endfor %}
         </ul>
     </div>
-    <div class="hot-data">
+    <div class="hot-data" style="
+        text-align:center;
+        margin-top:2em;">
         <!-- 昨日热门博客-->
         <h3>昨日热门博客</h3>
         <ul>
