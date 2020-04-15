@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404,render
-from .models import Blog,BlogType
+from .models import Blog,BlogType,ReadNum
 from django.contrib.contenttypes.models import ContentType
 from read_statistics.utils import read_statistics_once_read
 from comment.models import Comment
@@ -14,7 +14,21 @@ def blog_list(request):
 
 def blog_detail(request,blog_pk):
     blog = get_object_or_404(Blog,pk=blog_pk)
+<<<<<<< HEAD
     key = read_statistics_once_read(request,blog)
+=======
+    if not request.COOKIES.get('blog_%s_read' % blog_pk):
+        if ReadNum.objects.filter(blog = blog).count():
+            #存在记录
+            readnum = ReadNum.objects.get(blog=blog)
+        else:
+            #不存在记录
+            readnum = ReadNum()
+            readnum.blog = blog
+        readnum.read_num += 1
+        readnum.save()
+
+>>>>>>> a9735adcc420ed4a62558be10f66d5166a36f84c
     blog_content_type = ContentType.objects.get_for_model(blog)
     comments = Comment.objects.filter(content_type=blog_content_type,object_id=blog.pk)
     context={}
@@ -24,7 +38,11 @@ def blog_detail(request,blog_pk):
     context['user'] = request.user
     context['comments'] = comments
     response = render(request,'blog/blog_detail.html',context) #响应
+<<<<<<< HEAD
     response.set_cookie(key,'true') #max_age=60, expires=datetime
+=======
+    response.set_cookie('blog_%s_read' % blog_pk ,'true') #max_age=60, expires=datetime
+>>>>>>> a9735adcc420ed4a62558be10f66d5166a36f84c
     return response
 
 def blogs_with_type(request,blog_type_pk):
