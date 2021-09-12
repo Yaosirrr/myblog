@@ -1,5 +1,5 @@
 # myblog
-Django2.2 个人博客网站
+Django2.2 Personal Blog
 
-##说明
+##
 
