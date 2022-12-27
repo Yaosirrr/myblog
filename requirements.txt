@@ -1,4 +1,4 @@
 Django==2.2
 pytz==2019.3
-setuptools==39.0.1
+setuptools==65.5.1
 sqlparse==0.3.1
